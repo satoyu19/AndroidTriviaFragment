@@ -127,3 +127,32 @@
 		・ナビゲーションドロワーはMaterial Components for Androidライブラリの一部です。簡単にMaterialライブラリと呼ぶこともあります。MaterialライブラリはGoogleのマテリアルデザインガイドラインのパターンを実装する
 			際に利用します。
 			
+	
+	[フラグメント間のデータの引き渡し]
+		
+	Sage Args
+		・あるフラグメントから別のフラグメントに引数を渡せるようにする必要があります。このやり取りでのバグを避け、型安全にするために、Safe Argsと呼ばれるGradleプラグインを使います。このプラグインはNavDirectionクラス
+			を生成します。コードにこれらのクラスを追加していきます。データを渡す方法の一つとして、Bundleクラスのインスタンスを使う手法があります。Android Bundleはキーバリューストア(KVS)です。ディクショナリー、または
+			連想配列としても知られるKVSは独自のキー(string)を使用して関連した値を取り出すデータ機構です。
+
+		例えば、フラグメントAはbundleを作成し、キーと値のペアとして情報を保存します。それからBundleをフラグメントBに渡します。フラグメントBはキーを使ってBundleからキーに対応する値を取り出します。この技術は機能はします
+			が、コンパイルはできるけど動作時にエラーを起こす可能性があるコードを生み出します。以下が例
+				
+				・型不一致エラー
+				・ミッシングキーエラー
+				
+		ユーザーがこれらのエラーに遭遇する前に、開発中にエラーをキャッチする必要があります。
+
+		手順：
+			1,Android Studioでプロジェクトレベルのbuild.gradleファイルを開いてください。androidx.navigation:navigation-safe-args-gradle-plugin:依存関係を追加してください。
+			2,アプリレベルのbuild.gradleファイルを開いてください。ファイルの最上部、他のプラグインのあとにapply plugin文をandroidx.navigation.safeargsプラグインと共に追加してください。これで、各フラグメントに
+				対して、NavDirectionクラスが生成された。これはアプリ内のすべてのアクションからのナビゲーションを表す。(view.findNavController().navigate(GameFragmentDirections.actionGa~)とアクセスできる)
+			
+		引数を追加する手順：
+			1,res > navigationフォルダーからnavigation.xmlを開いてください。Designタブをクリックしてナビゲーショングラフを開いてください。プレビュー内のFragment(値を受け取る側)を選択してください。
+			2,アトリビュートパネルのArgumentsセクションを展開してください。
+			3,＋アイコンをクリックして引数を追加してください。名前と、Typerを選択してAddをクリックしてください。この状態でビルドしようとすると、コンパイルエラーが発生します。
+			4,値を渡すフラグメントから、引数を渡す。　→ view.findNavController().navigate(GameFragmentDirections.actionGameFragmentToGameWonFragment(numQuestions, questionIndex))	
+			5,値を受け取る側で、bundleから引数を抽出する。
+			
+		Intentを用いり、外部に共有することもできる。
