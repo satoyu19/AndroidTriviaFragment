@@ -101,11 +101,13 @@ class GameFragment : Fragment() {
                         //条件付きナビゲーション
                     } else {
                         // We've won!  Navigate to the gameWonFragment.
-                        view.findNavController().navigate(R.id.action_gameFragment_to_gameWonFragment)
+//                        view.findNavController().navigate(R.id.action_gameFragment_to_gameWonFragment)
+                        //Safe Arg　pluginを追加したため、NavDirectionクラスが生成された
+                        view.findNavController().navigate(GameFragmentDirections.actionGameFragmentToGameWonFragment(numQuestions,questionIndex))   //navigationグラフのArgumentで追加した引数に対して値を渡す
                     }
                 } else {
                     // Game over! A wrong answer sends us to the gameOverFragment.
-                    view.findNavController().navigate(R.id.action_gameFragment_to_gameOverFragment)
+                    view.findNavController().navigate(GameFragmentDirections.actionGameFragmentToGameOverFragment())
                 }
             }
         }

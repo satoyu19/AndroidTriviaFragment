@@ -20,6 +20,9 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
+//safeargsを追加、Safe Argsはそれぞれのフラグメントに対してNavDirectionクラスを生成します。
+// それらのクラスはアプリ内の全てのアクションからのナビゲーションを表します。
+apply plugin: 'androidx.navigation.safeargs'
 
 android {
     compileSdkVersion 30
