@@ -1,4 +1,5 @@
-Naviagationの注意、androidxのコンポーネントを使わないとうまくいかない
+Naviagationの注意、androidxのコンポーネントを使わないとうまくいかない:https://developer.android.com/guide/navigation/navigation-getting-started?hl=ja
+	
 	[MainActivity]
 		・MainActivityは数あるアクティビティのうちの一つです。アクティビティはAndroidアプリのUI(ボタンやインプットボックスなど)を表示したり、ユーザーからのインプットを受け取ったりするアプリの
 		核をなすファイルです。ア
